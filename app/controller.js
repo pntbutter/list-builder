@@ -18,8 +18,6 @@
     var self = this;
 
     self.$storage = $localStorage;
-
-
     self.addList = addList;
     self.removeList = removeList;
 
@@ -49,26 +47,30 @@
       $localStorage.lists.push({
         id: $localStorage.listsId,
         name: 'Unnamed list',
-        units: {
-          name: 'Tactical squad',
-          points: 70,
-          type: 'Troop',
-          wargear: [
-            {
-              name: '+5 marines',
-              points: 70
-            },
-            {
-              name: 'Rocket launcher',
-              points: 15
-            },
-            {
-              name: 'Flamer',
-              points: 10
-            }
-          ]
-        }
+        units: [
+          {
+            name: 'Tactical squad',
+            points: 70,
+            type: 'Troop',
+            wargear: [
+              {
+                name: '+5 marines',
+                points: 70
+              },
+              {
+                name: 'Rocket launcher',
+                points: 15
+              },
+              {
+                name: 'Flamer',
+                points: 10
+              }
+            ]
+          }
+        ]
       });
+
+      console.log($localStorage.lists);
     }
 
     function removeList(id) {

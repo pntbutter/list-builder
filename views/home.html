@@ -3,9 +3,25 @@
 <main class="lists">
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">
         <header>
-            <h3>{{list.name}}</h3> <button ng-click="main.removeList(list.id)">Remove list</button>
+            <h3>{{list.name}}</h3>
         </header>
 
-        <pre>{{list | json}}</pre>
+        <ul class="units">
+            <li class="unit" ng-repeat="unit in list.units track by $index">
+
+
+                {{unit.name}} <span class="badge">{{unit.points}}</span>
+                <ul class="wargear-items">
+                    <li class="wargear-item" ng-repeat="item in unit.wargear track by $index">
+
+                        {{item.name}} <span class="badge">{{item.points}}</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+
+        <footer>
+            <button ng-click="main.removeList(list.id)">Remove list</button>
+        </footer>
     </div>
 </main>
