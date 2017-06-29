@@ -17,7 +17,8 @@
    */
   angular
     .module('boilerplate', [
-      'ngRoute'
+      'ngRoute',
+      'ngStorage'
     ])
     .config(config);
 

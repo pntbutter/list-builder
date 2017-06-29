@@ -11,27 +11,65 @@
     .module('boilerplate')
     .controller('MainController', MainController);
 
-  MainController.$inject = ['LocalStorage', 'QueryService'];
+  //MainController.$inject = ['ngStorage'];
 
 
-  function MainController(LocalStorage, QueryService) {
-
-    // 'controller as' syntax
+  function MainController($scope, $localStorage) {
     var self = this;
 
+    self.$storage = $localStorage;
 
-    ////////////  function definitions
+
+    self.addList = addList;
+    self.clearLists = clearLists;
 
 
-    /**
-     * Load some data
-     * @return {Object} Returned object
-     */
-    // QueryService.query('GET', 'posts', {}, {})
-    //   .then(function(ovocie) {
-    //     self.ovocie = ovocie.data;
-    //   });
+
+    init();
+
+
+
+    function init() {
+      if (!$localStorage.lists) {
+        $localStorage.lists = [];
+      }
+    }
+
+    function addList() {
+      if (!$localStorage.lists) {
+        $localStorage.lists = [];
+      }
+
+      $localStorage.listsId = $localStorage.listsId + 1;
+
+      $localStorage.lists.push({
+        id: $localStorage.listsId,
+        name: 'Unnamed list',
+        units: {
+          name: 'Tactical squad',
+          points: 70,
+          type: 'Troop',
+          wargear: [
+            {
+              name: '+5 marines',
+              points: 70
+            },
+            {
+              name: 'Rocket launcher',
+              points: 15
+            },
+            {
+              name: 'Flamer',
+              points: 10
+            }
+          ]
+        }
+      });
+    }
+
+    function clearLists() {
+      delete self.$storage.lists;
+    }
   }
-
 
 })();
