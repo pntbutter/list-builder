@@ -21,7 +21,7 @@
 
 
     self.addList = addList;
-    self.clearLists = clearLists;
+    self.removeList = removeList;
 
 
 
@@ -32,6 +32,10 @@
     function init() {
       if (!$localStorage.lists) {
         $localStorage.lists = [];
+      }
+
+      if (!$localStorage.listsId) {
+        $localStorage.listsId = 1;
       }
     }
 
@@ -67,8 +71,14 @@
       });
     }
 
-    function clearLists() {
-      delete self.$storage.lists;
+    function removeList(id) {
+      var lists = $localStorage.lists;
+
+      lists.forEach(function(list, index) {
+        if (list.id == id) {
+          $localStorage.lists.splice(index, 1);
+        }
+      });
     }
   }
 

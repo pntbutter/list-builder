@@ -1,7 +1,11 @@
 <button ng-click="main.addList()">Add list</button>
 
-<div ng-repeat="list in main.$storage.lists track by $index">
-    <pre>{{list | json}}</pre>
-</div>
+<main class="lists">
+    <div class="list" ng-repeat="list in main.$storage.lists track by $index">
+        <header>
+            <h3>{{list.name}}</h3> <button ng-click="main.removeList(list.id)">Remove list</button>
+        </header>
 
-<button ng-click="main.clearLists()">Remove all lists</button>
+        <pre>{{list | json}}</pre>
+    </div>
+</main>
