@@ -1,3 +1,7 @@
+main-nav {
+  display: none;
+}
+
 body {
   & > .container {
     display: flex;
@@ -16,6 +20,8 @@ body {
 
 .lists {
   .list {
+    max-width: 75%;
+
     &:not(:last-child) {
       margin-bottom: 30px;
       padding-bottom: 30px;
@@ -23,22 +29,24 @@ body {
     }
 
     .list-header {
-      h3 {
-        margin: 0 0 20px;
+      margin-bottom: 20px;
+      font-size: 150%;
+
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
       }
 
-      &:hover {
-        button {
-          opacity: 1;
-          pointer-events: auto;
-        }
+      .list-name {
+        width: 80%;
+        float: left;
       }
 
-      button {
-        opacity: 0;
-        pointer-events: none;
-        transition: all .25s;
-        font-size: 50%;
+      .list-total {
+        width: 20%;
+        float: right;
+        text-align: right;
       }
     }
 
@@ -49,27 +57,20 @@ body {
 
       .unit {
         position: relative;
-        margin-left: -30px;
-        padding-left: 30px;
+        padding: 15px;
 
-        &:not(:last-child) {
-          margin-bottom: 15px;
-        }
-
-        &:hover {
-          & > .delete {
-            opacity: .5;
-          }
+        &:nth-child(odd) {
+          background: rgba(#000, .02);
         }
 
         & > .delete {
           width: 20px;
           height: 20px;
+          margin-left: 8px;
         }
 
         .unit-type {
           margin-right: 10px;
-          text-align: right;
           opacity: .5;
         }
 
@@ -77,7 +78,9 @@ body {
           font-weight: 700;
         }
 
-        .unit-points {}
+        .unit-points {
+          float: right;
+        }
 
         .wargear-items {
           list-style: none;
@@ -90,41 +93,39 @@ body {
             padding-left: 25px;
             font-size: 88%;
 
-            &:hover {
-              & > .delete {
-                opacity: .5;
-              }
-            }
-
             & > .delete {
               width: 16px;
               height: 16px;
+              margin: 0 2px 0 10px;
             }
 
             .wargear-name {}
 
             .wargear-points {
-              min-width: 19px;
-              height: 19px;
-              line-height: 19px;
-              padding: 0 5px;
+              float: right;
             }
           }
         }
       }
     }
+
+    .list-footer {
+      margin-top: 20px;
+    }
   }
 
   .delete {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    display: block;
+    float: right;
+    display: inline-block;
     width: 15px;
     height: 15px;
     opacity: .1;
     transition: all .15s;
     cursor: pointer;
+
+    &:hover {
+      opacity: .4;
+    }
   }
 }
 
@@ -135,25 +136,14 @@ body {
 
 
 
-.points {
-  min-width: 22px;
-  height: 22px;
-  line-height: 22px;
-  padding: 0 5px;
-  border-radius: 500px;
-  vertical-align: middle;
-  background: $primary;
-  color: #fff;
-  font-size: 78%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
 
 
-input[type="text"] {
+
+input[type="text"],
+input[type="number"] {
   display: inline-block;
   width: auto;
+  min-width: 20px;
   padding: 0;
   border: none;
   background: transparent;
@@ -162,4 +152,60 @@ input[type="text"] {
   &.empty {
     box-shadow: 0 0 5px rgba(red, .2);
   }
+}
+
+input.points {
+  height: 20px;
+  padding: 0 5px;
+  background: $primary;
+  border: none;
+  border-radius: 500px;
+  color: #fff;
+  font-size: 70%;
+  text-align: center;
+
+  &:focus {
+    background: #fff;
+    color: #000;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    display: none;
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.btn {
+  display: inline-block;
+  padding: 4px 20px;
+  border-radius: 4px;
+  border: 2px solid $primary;
+  background: $primary;
+  color: rgba(#fff, .75);
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all .15s;
+
+  &:hover {
+    color: #fff;
+    background: mix($primary, $black, 90%);
+    border-color: mix($primary, $white, 90%);
+  }
+
+  &.btn-warning {
+    background: $alert-red;
+    border-color: $alert-red;
+  }
+}
+
+.btn-icon {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  background: transparent;
 }

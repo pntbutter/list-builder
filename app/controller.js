@@ -25,6 +25,7 @@
     self.removeUnit = removeUnit;
     self.removeWargear = removeWargear;
     self.removeList = removeList;
+    self.listTotal = listTotal;
 
 
 
@@ -96,7 +97,6 @@
         if (list.id == listId) {
           var tmplistid = index;
           var units = $localStorage.lists[index].units;
-          console.log(units);
 
           units.forEach(function(unit, index) {
             if (unit.id == unitId) {
@@ -117,12 +117,54 @@
       });
     }
 
-    function removeUnit(unitId) {
+    function removeUnit(listId, unitId) {
+      var lists = $localStorage.lists;
 
+      lists.forEach(function(list, index) {
+        if (list.id == listId) {
+          var tmplistid = index;
+          var units = $localStorage.lists[index].units;
+
+          units.forEach(function(unit, index) {
+            if (unit.id == unitId) {
+              $localStorage.lists[tmplistid].units.splice(index, 1);
+
+              delete lists;
+              delete units;
+              return false;
+            }
+          });
+        }
+      });
     }
 
-    function removeWargear(wargearId) {
+    function removeWargear(listId, unitId, wargearId) {
+      var lists = $localStorage.lists;
 
+      lists.forEach(function(list, index) {
+        if (list.id == listId) {
+          var tmplistid = index;
+          var units = $localStorage.lists[index].units;
+
+          units.forEach(function(unit, index) {
+            if (unit.id == unitId) {
+              var tmpunits = index;
+              var wargear = $localStorage.lists[tmplistid].units[index].wargear;
+
+              wargear.forEach(function(item, index) {
+                if (item.id == wargearId) {
+                  $localStorage.lists[tmplistid].units[tmpunits].wargear.splice(index, 1);
+
+                  delete lists;
+                  delete units;
+                  delete wargear;
+                  return false;
+                }
+              });
+            }
+          });
+        }
+      });
     }
 
     function removeList(id) {
@@ -136,6 +178,34 @@
           return false;
         }
       });
+    }
+
+    function listTotal(id) {
+      var lists = $localStorage.lists;
+      var total = 0;
+
+      lists.forEach(function(list, index) {
+        if (list.id == id) {
+          var tmplistid = index;
+          var units = $localStorage.lists[index].units;
+
+          units.forEach(function(unit, index) {
+            total = total + unit.points;
+
+            var wargear = $localStorage.lists[tmplistid].units[index].wargear;
+
+            wargear.forEach(function(item) {
+              total = total + item.points;
+            });
+          });
+        }
+      });
+
+      delete lists;
+      delete units;
+      delete wargear;
+
+      return total;
     }
   }
 
