@@ -90,8 +90,7 @@ body>.container>.sidebar{position:sticky;width:33.3333%;max-height:100vh}
 .lists .delete{display:inline-block;width:15px;height:15px;opacity:.1;cursor:pointer}
 .lists .delete:hover{opacity:.4}
 .sidebar{padding:30px;border:1px solid rgba(0,0,0,.1)}
-.sidebar .list-nav{margin:0}
-.sidebar .list-nav:not(:empty){margin:0 0 15px}
+.sidebar .list-nav{margin:0 0 15px}
 input[type=text],input[type=number]{display:inline-block;width:auto;min-width:20px;padding:0;border:none;background:0 0;outline:0}
 input[type=text].empty,input[type=number].empty{box-shadow:0 0 5px rgba(255,0,0,.2)}
 input.points{height:20px;padding:0 5px;background:#4682b4;border:none;border-radius:500px;color:#fff;font-size:70%;text-align:center}

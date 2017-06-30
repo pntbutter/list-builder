@@ -69,9 +69,9 @@
         if (list.id == listId) {
           $localStorage.lists[index].units.push({
             id: $localStorage.unitId,
-            name: 'Tactical squad',
+            name: 'Unit name',
             points: 70,
-            type: 'Troop',
+            type: 'Unit type',
             wargear: []
           });
           console.log($localStorage.lists[index].units);
@@ -96,7 +96,7 @@
             if (unit.id == unitId) {
               $localStorage.lists[tmplistid].units[index].wargear.push({
                 id: $localStorage.wargearId,
-                name: 'Flamer',
+                name: 'Wargear name',
                 points: 10
               });
 
