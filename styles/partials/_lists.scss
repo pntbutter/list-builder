@@ -5,6 +5,7 @@ main-nav {
 body {
   & > .container {
     display: flex;
+    align-items: flex-start;
     margin-top: 50px;
 
     & > .lists {
@@ -13,14 +14,15 @@ body {
     }
 
     & > .sidebar {
+      position: sticky;
       width: 33.3333%;
+      max-height: 100vh;
     }
   }
 }
 
 .lists {
   .list {
-    max-width: 75%;
 
     &:not(:last-child) {
       margin-bottom: 30px;
@@ -59,9 +61,8 @@ body {
         position: relative;
         padding: 15px;
 
-        &:nth-child(odd) {
-          background: rgba(#000, .02);
-        }
+        &:nth-child(odd) { background: rgba(#000, .025); }
+        &:nth-child(even) { background: rgba(#000, .0075); }
 
         & > .delete {
           width: 20px;
@@ -132,6 +133,10 @@ body {
 .sidebar {
   padding: 30px;
   border: 1px solid rgba(#000, .1);
+
+  .list-nav {
+    margin: 0 0 15px 0;
+  }
 }
 
 
@@ -165,9 +170,10 @@ input.points {
   text-align: center;
 
   &:focus {
-    background: #fff;
-    color: #000;
+    background: #75afe2;
   }
+
+
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {

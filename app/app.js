@@ -19,7 +19,8 @@
     .module('boilerplate', [
       'ngRoute',
       'ngStorage',
-      'puElasticInput'
+      'puElasticInput',
+      'duScroll'
     ])
     .config(config);
 

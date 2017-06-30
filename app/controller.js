@@ -11,13 +11,11 @@
     .module('boilerplate')
     .controller('MainController', MainController);
 
-  //MainController.$inject = ['ngStorage'];
-
-
-  function MainController($scope, $localStorage) {
+  function MainController($localStorage, $document) {
     var self = this;
 
     self.$storage = $localStorage;
+    self.lists = $localStorage.lists;
 
     self.addList = addList;
     self.addUnit = addUnit;
@@ -26,6 +24,7 @@
     self.removeWargear = removeWargear;
     self.removeList = removeList;
     self.listTotal = listTotal;
+    self.scrollTo = scrollTo;
 
 
 
@@ -49,21 +48,15 @@
       if (!$localStorage.wargearId) {
         $localStorage.wargearId = 1;
       }
+
+      stickybits('.sidebar');
     }
 
     function addList() {
       $localStorage.lists.push({
         id: $localStorage.listsId,
         name: 'Unnamed list',
-        units: [
-          {
-            id: $localStorage.unitId,
-            name: 'Tactical squad',
-            points: 70,
-            type: 'Troop',
-            wargear: []
-          }
-        ]
+        units: []
       });
 
       $localStorage.listsId++;
@@ -81,6 +74,7 @@
             type: 'Troop',
             wargear: []
           });
+          console.log($localStorage.lists[index].units);
 
           $localStorage.unitId++;
 
@@ -206,6 +200,10 @@
       delete wargear;
 
       return total;
+    }
+
+    function scrollTo(id) {
+      $document.scrollToElementAnimated(angular.element('#' + id), 40);
     }
   }
 
