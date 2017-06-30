@@ -18,7 +18,8 @@
   angular
     .module('boilerplate', [
       'ngRoute',
-      'ngStorage'
+      'ngStorage',
+      'puElasticInput'
     ])
     .config(config);
 

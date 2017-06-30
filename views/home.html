@@ -1,27 +1,39 @@
-<button ng-click="main.addList()">Add list</button>
-
 <main class="lists">
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">
-        <header>
-            <h3>{{list.name}}</h3>
+        <header class="list-header">
+            <h3><input class="list-name" type="text" ng-model="list.name"> <button ng-click="main.removeList(list.id)">Remove list</button></h3>
+
         </header>
 
         <ul class="units">
-            <li class="unit" ng-repeat="unit in list.units track by $index">
+            <li class="unit" ng-repeat="unit in list.units">
 
-
-                {{unit.name}} <span class="badge">{{unit.points}}</span>
+                <input class="unit-type" type="text" ng-model="unit.type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
+                <input class="unit-name" type="text" ng-model="unit.name" pu-elastic-input>
+                <span class="points unit-points">{{unit.points}}</span>
+                <span class="delete delete-unit" ng-click="main.removeUnit(unit.id)">
+                    <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+                </span>
                 <ul class="wargear-items">
-                    <li class="wargear-item" ng-repeat="item in unit.wargear track by $index">
-
-                        {{item.name}} <span class="badge">{{item.points}}</span>
+                    <li class="wargear-item" ng-repeat="item in unit.wargear">
+                        <input class="wargear-name" type="text" ng-model="item.name" pu-elastic-input>
+                        <span class="points wargear-points">{{item.points}}</span>
+                        <span class="delete delete-wargear" ng-click="main.removeWargear(item.id)">
+                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1490 1322q0 40-28 68l-136 136q-28 28-68 28t-68-28l-294-294-294 294q-28 28-68 28t-68-28l-136-136q-28-28-28-68t28-68l294-294-294-294q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 294 294-294q28-28 68-28t68 28l136 136q28 28 28 68t-28 68l-294 294 294 294q28 28 28 68z"/></svg>
+                        </span>
                     </li>
+                    <li><button ng-click="main.addWargear(list.id, unit.id)">Add wargear</button></li>
                 </ul>
             </li>
+            <li><button ng-click="main.addUnit(list.id)">Add unit</button></li>
         </ul>
 
-        <footer>
-            <button ng-click="main.removeList(list.id)">Remove list</button>
+        <footer class="list-footer">
+
         </footer>
     </div>
 </main>
+
+<aside class="sidebar">
+    <button ng-click="main.addList()">Add list</button>
+</aside>

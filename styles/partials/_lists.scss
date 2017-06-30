@@ -1,4 +1,141 @@
-.badge {
+body {
+  & > .container {
+    display: flex;
+    margin-top: 50px;
+
+    & > .lists {
+      width: 66.6666%;
+      padding-right: 50px;
+    }
+
+    & > .sidebar {
+      width: 33.3333%;
+    }
+  }
+}
+
+.lists {
+  .list {
+    &:not(:last-child) {
+      margin-bottom: 30px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid rgba(#000, .1);
+    }
+
+    .list-header {
+      h3 {
+        margin: 0 0 20px;
+      }
+
+      &:hover {
+        button {
+          opacity: 1;
+          pointer-events: auto;
+        }
+      }
+
+      button {
+        opacity: 0;
+        pointer-events: none;
+        transition: all .25s;
+        font-size: 50%;
+      }
+    }
+
+    .units {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      .unit {
+        position: relative;
+        margin-left: -30px;
+        padding-left: 30px;
+
+        &:not(:last-child) {
+          margin-bottom: 15px;
+        }
+
+        &:hover {
+          & > .delete {
+            opacity: .5;
+          }
+        }
+
+        & > .delete {
+          width: 20px;
+          height: 20px;
+        }
+
+        .unit-type {
+          margin-right: 10px;
+          text-align: right;
+          opacity: .5;
+        }
+
+        .unit-name {
+          font-weight: 700;
+        }
+
+        .unit-points {}
+
+        .wargear-items {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+
+          .wargear-item {
+            position: relative;
+            margin-left: -25px;
+            padding-left: 25px;
+            font-size: 88%;
+
+            &:hover {
+              & > .delete {
+                opacity: .5;
+              }
+            }
+
+            & > .delete {
+              width: 16px;
+              height: 16px;
+            }
+
+            .wargear-name {}
+
+            .wargear-points {
+              min-width: 19px;
+              height: 19px;
+              line-height: 19px;
+              padding: 0 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .delete {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    display: block;
+    width: 15px;
+    height: 15px;
+    opacity: .1;
+    transition: all .15s;
+    cursor: pointer;
+  }
+}
+
+.sidebar {
+  padding: 30px;
+  border: 1px solid rgba(#000, .1);
+}
+
+
+
+.points {
   min-width: 22px;
   height: 22px;
   line-height: 22px;
@@ -7,8 +144,22 @@
   vertical-align: middle;
   background: $primary;
   color: #fff;
-  font-size: 12px;
+  font-size: 78%;
   display: inline-flex;
   justify-content: center;
   align-items: center;
+}
+
+
+input[type="text"] {
+  display: inline-block;
+  width: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+
+  &.empty {
+    box-shadow: 0 0 5px rgba(red, .2);
+  }
 }
