@@ -70,7 +70,7 @@
           $localStorage.lists[index].units.push({
             id: $localStorage.unitId,
             name: 'Unit name',
-            points: 70,
+            points: 0,
             type: 'Unit type',
             wargear: []
           });
@@ -97,7 +97,7 @@
               $localStorage.lists[tmplistid].units[index].wargear.push({
                 id: $localStorage.wargearId,
                 name: 'Wargear name',
-                points: 10
+                points: 0
               });
 
               $localStorage.wargearId++;
