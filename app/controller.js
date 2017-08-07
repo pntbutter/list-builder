@@ -11,11 +11,13 @@
     .module('boilerplate')
     .controller('MainController', MainController);
 
-  function MainController($localStorage, $document) {
+  function MainController($localStorage, $document, $timeout) {
     var self = this;
 
     self.$storage = $localStorage;
     self.lists = $localStorage.lists;
+    self.copyModeActive = false;
+    self.copyModeList = null;
 
     self.addList = addList;
     self.addUnit = addUnit;
@@ -23,7 +25,11 @@
     self.removeUnit = removeUnit;
     self.removeWargear = removeWargear;
     self.removeList = removeList;
+    self.moveUnitUp = moveUnitUp;
+    self.moveUnitDown = moveUnitDown;
     self.listTotal = listTotal;
+    self.copyMode = copyMode;
+    self.exitCopyMode = exitCopyMode;
     self.scrollTo = scrollTo;
 
 
@@ -55,7 +61,7 @@
     function addList() {
       $localStorage.lists.push({
         id: $localStorage.listsId,
-        name: 'Unnamed list',
+        name: '',
         units: []
       });
 
@@ -69,12 +75,11 @@
         if (list.id == listId) {
           $localStorage.lists[index].units.push({
             id: $localStorage.unitId,
-            name: 'Unit name',
+            name: '',
             points: 0,
-            type: 'Unit type',
+            type: '',
             wargear: []
           });
-          console.log($localStorage.lists[index].units);
 
           $localStorage.unitId++;
 
@@ -96,7 +101,7 @@
             if (unit.id == unitId) {
               $localStorage.lists[tmplistid].units[index].wargear.push({
                 id: $localStorage.wargearId,
-                name: 'Wargear name',
+                name: '',
                 points: 0
               });
 
@@ -152,9 +157,61 @@
                   delete lists;
                   delete units;
                   delete wargear;
+                  delete tmplistid;
+                  delete tmpunits;
                   return false;
                 }
               });
+            }
+          });
+        }
+      });
+    }
+
+    function moveUnitUp(listid, unitid) {
+      var lists = $localStorage.lists;
+
+      lists.forEach(function(list, index) {
+        if (list.id == listid) {
+          var tmpListId = index;
+          var units = $localStorage.lists[index].units;
+
+          units.forEach(function(unit, index) {
+            if (unit.id == unitid && index > 0) {
+              var tmpMoveUnit = $localStorage.lists[tmpListId].units[index - 1];
+              $localStorage.lists[tmpListId].units[index - 1] = unit;
+              $localStorage.lists[tmpListId].units[index] = tmpMoveUnit;
+
+              delete lists;
+              delete units;
+              delete tmpMoveUnit;
+              delete tmpListId;
+              return false;
+            }
+          });
+        }
+      });
+    }
+
+    function moveUnitDown(listid, unitid) {
+      var lists = $localStorage.lists;
+
+      lists.forEach(function(list, index) {
+        if (list.id == listid) {
+          var tmpListId = index;
+          var units = $localStorage.lists[index].units;
+
+          units.forEach(function(unit, index) {
+            if (unit.id == unitid && units.length - 1 > index) {
+              var tmpMoveUnit = $localStorage.lists[tmpListId].units[index + 1];
+              $localStorage.lists[tmpListId].units[index] = tmpMoveUnit;
+              $localStorage.lists[tmpListId].units[index + 1] = unit;
+
+              delete lists;
+              delete units;
+              delete tmpMoveUnit;
+              delete tmpListId;
+              return false;
             }
           });
         }
@@ -202,9 +259,31 @@
       return total;
     }
 
+    function copyMode(listId) {
+      self.copyModeActive = true;
+      var lists = $localStorage.lists;
+
+      lists.forEach(function(list, index) {
+        if (list.id == listId) {
+          self.copyModeList = list;
+          return false;
+        }
+      });
+    }
+
+    function exitCopyMode() {
+      self.copyModeActive = false;
+
+      $timeout(function() {
+        self.copyModeList = null;
+      }, 250)
+    }
+
     function scrollTo(id) {
       $document.scrollToElementAnimated(angular.element('#' + id), 40);
     }
   }
+
+  MainController.$inject = [ '$localStorage', '$document', '$timeout' ];
 
 })();

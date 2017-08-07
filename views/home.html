@@ -1,31 +1,49 @@
 <main class="lists">
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">
         <header class="list-header" id="{{list.id}}">
-            <input class="list-name" type="text" ng-model="list.name">
+            <input class="list-name" type="text" placeholder="List name" ng-model="list.name">
             <span class="list-total">{{main.listTotal(list.id)}}</span>
         </header>
 
         <ul class="units">
             <li class="unit" ng-repeat="unit in list.units">
 
-                <input class="unit-type" type="text" ng-model="unit.type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
-                <input class="unit-name" type="text" ng-model="unit.name" pu-elastic-input>
+                <div class="move-container">
+                    <div ng-click="main.moveUnitUp(list.id, unit.id)">
+                        <svg width="18" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1675 971q0 51-37 90l-75 75q-38 38-91 38-54 0-90-38l-294-293v704q0 52-37.5 84.5t-90.5 32.5h-128q-53 0-90.5-32.5t-37.5-84.5v-704l-294 293q-36 38-90 38t-90-38l-75-75q-38-38-38-90 0-53 38-91l651-651q35-37 90-37 54 0 91 37l651 651q37 39 37 91z"/>
+                        </svg>
+                    </div>
+                    <div ng-click="main.moveUnitDown(list.id, unit.id)">
+                        <svg width="18" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1675 832q0 53-37 90l-651 652q-39 37-91 37-53 0-90-37l-651-652q-38-36-38-90 0-53 38-91l74-75q39-37 91-37 53 0 90 37l294 294v-704q0-52 38-90t90-38h128q52 0 90 38t38 90v704l294-294q37-37 90-37 52 0 91 37l75 75q37 39 37 91z"/>
+                        </svg>
+                    </div>
+                </div>
+                <input class="unit-type" type="text" ng-model="unit.type" placeholder="Unit type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
+                <input class="unit-name" type="text" ng-model="unit.name" placeholder="Unit name" pu-elastic-input>
                 <span class="delete delete-unit" ng-click="main.removeUnit(list.id, unit.id)">
-                    <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-832q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h832q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
+                    <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1344 960v-128q0-26-19-45t-45-19h-768q-26 0-45 19t-19 45v128q0 26 19 45t45 19h768q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>
+                    </svg>
                 </span>
-                <input class="points unit-points" type="number" min="0" ng-model="unit.points" pu-elastic-input>
+                <input class="points unit-points" type="number" min="0" placeholder="0" ng-model="unit.points" pu-elastic-input>
 
                 <ul class="wargear-items">
                     <li class="wargear-item" ng-repeat="item in unit.wargear">
-                        <input class="wargear-name" type="text" ng-model="item.name" pu-elastic-input>
+                        <input class="wargear-name" type="text" ng-model="item.name" placeholder="Wargear name" pu-elastic-input>
                         <span class="delete delete-wargear" ng-click="main.removeWargear(list.id, unit.id, item.id)">
-                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-832q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h832q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1344 960v-128q0-26-19-45t-45-19h-768q-26 0-45 19t-19 45v128q0 26 19 45t45 19h768q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>
+                            </svg>
                         </span>
-                        <input class="points wargear-points" type="number" ng-model="item.points" pu-elastic-input>
+                        <input class="points wargear-points" type="number" placeholder="0" ng-model="item.points" pu-elastic-input>
                     </li>
                     <li>
                         <button class="btn-icon" ng-click="main.addWargear(list.id, unit.id)" tabindex="-1">
-                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1344 800v64q0 14-9 23t-23 9h-352v352q0 14-9 23t-23 9h-64q-14 0-23-9t-9-23v-352h-352q-14 0-23-9t-9-23v-64q0-14 9-23t23-9h352v-352q0-14 9-23t23-9h64q14 0 23 9t9 23v352h352q14 0 23 9t9 23zm128 448v-832q0-66-47-113t-113-47h-832q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113zm128-832v832q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h832q119 0 203.5 84.5t84.5 203.5z"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1344 960v-128q0-26-19-45t-45-19h-256v-256q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v256h-256q-26 0-45 19t-19 45v128q0 26 19 45t45 19h256v256q0 26 19 45t45 19h128q26 0 45-19t19-45v-256h256q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>
+                            </svg>
                         </button>
                     </li>
                 </ul>
@@ -34,15 +52,30 @@
 
         <footer class="list-footer">
             <button class="btn" ng-click="main.addUnit(list.id)">Add unit</button>
-            <button class="btn btn-warning" ng-click="main.removeList(list.id)">Remove list</button>
+            <button class="btn" ng-click="main.copyMode(list.id)">Copy mode</button>
+            <button class="btn btn-warning" ng-click="main.removeList(list.id)" style="float: right;">Remove list</button>
         </footer>
     </div>
 </main>
 
 <aside class="sidebar">
     <ul class="list-nav">
-        <li ng-repeat="list in main.$storage.lists track by $index"><a ng-click="main.scrollTo(list.id)">{{list.name}}</a></li>
+        <li ng-repeat="list in main.$storage.lists track by $index">&raquo; <a ng-click="main.scrollTo(list.id)">{{list.name}}</a></li>
     </ul>
 
     <button class="btn" ng-click="main.addList()">Add list</button>
 </aside>
+
+<section class="copy-mode-container {{main.copyModeActive}}">
+    <div class="container">
+        <div class="close-copy-mode" ng-click="main.exitCopyMode()">Exit</div>
+
+        <h3>{{main.copyModeList.name}} - <strong>{{main.listTotal(main.copyModeList.id)}}p</strong></h3>
+        <p ng-repeat="unit in main.copyModeList.units">
+            {{unit.type}} - {{unit.name}} - <strong>{{unit.points}}p</strong><br>
+            <span ng-repeat="wargear in unit.wargear">
+                <small>{{wargear.name}} - <strong>{{wargear.points}}p</strong></small><br>
+            </span>
+        </p>
+    </div>
+</section>
