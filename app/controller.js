@@ -30,6 +30,7 @@
     self.listTotal = listTotal;
     self.copyMode = copyMode;
     self.exitCopyMode = exitCopyMode;
+    self.duplicateList = duplicateList;
     self.scrollTo = scrollTo;
 
 
@@ -76,7 +77,7 @@
           $localStorage.lists[index].units.push({
             id: $localStorage.unitId,
             name: '',
-            points: 0,
+            points: null,
             type: '',
             wargear: []
           });
@@ -219,16 +220,20 @@
     }
 
     function removeList(id) {
-      var lists = $localStorage.lists;
+      var result = confirm("Are you sure you want to delete this list?");
+      if (result) {
+        var lists = $localStorage.lists;
 
-      lists.forEach(function(list, index) {
-        if (list.id == id) {
-          $localStorage.lists.splice(index, 1);
+        lists.forEach(function(list, index) {
+          if (list.id == id) {
+            $localStorage.lists.splice(index, 1);
 
-          delete lists;
-          return false;
-        }
-      });
+            delete lists;
+            return false;
+          }
+        });
+      }
+
     }
 
     function listTotal(id) {
@@ -277,6 +282,23 @@
       $timeout(function() {
         self.copyModeList = null;
       }, 250)
+    }
+
+    function duplicateList(id) {
+      var lists = $localStorage.lists,
+          newListId = $localStorage.listsId;
+      $localStorage.listsId++;
+
+
+      lists.forEach(function(list, index) {
+        if (list.id == id) {
+          var newList = angular.copy(list);
+          newList.id = newListId;
+
+          $localStorage.lists.push(newList);
+          return false;
+        }
+      });
     }
 
     function scrollTo(id) {

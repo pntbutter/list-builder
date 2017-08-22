@@ -1,4 +1,9 @@
-<main class="lists">
+<main class="lists" ng-class="{ 'copymode-active': main.copyModeActive }">
+
+    <div class="no-lists" ng-class="{ 'active': main.$storage.lists.length == 0 }">
+        <h1>You currently don't have any lists</h1><button class="btn" ng-click="main.addList()">Create one</button>
+    </div>
+
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">
         <header class="list-header" id="{{list.id}}">
             <input class="list-name" type="text" placeholder="List name" ng-model="list.name">
@@ -53,12 +58,13 @@
         <footer class="list-footer">
             <button class="btn" ng-click="main.addUnit(list.id)">Add unit</button>
             <button class="btn" ng-click="main.copyMode(list.id)">Copy mode</button>
+            <button class="btn" ng-click="main.duplicateList(list.id)">Duplicate</button>
             <button class="btn btn-warning" ng-click="main.removeList(list.id)" style="float: right;">Remove list</button>
         </footer>
     </div>
 </main>
 
-<aside class="sidebar">
+<aside class="sidebar" ng-if="!main.copyModeActive && main.$storage.lists.length > 0">
     <ul class="list-nav">
         <li ng-repeat="list in main.$storage.lists track by $index">&raquo; <a ng-click="main.scrollTo(list.id)">{{list.name}}</a></li>
     </ul>
@@ -66,16 +72,16 @@
     <button class="btn" ng-click="main.addList()">Add list</button>
 </aside>
 
-<section class="copy-mode-container {{main.copyModeActive}}">
+<section class="copy-mode-container" ng-class="{ 'copymode-active': main.copyModeActive }">
     <div class="container">
         <div class="close-copy-mode" ng-click="main.exitCopyMode()">Exit</div>
 
         <h3>{{main.copyModeList.name}} - <strong>{{main.listTotal(main.copyModeList.id)}}p</strong></h3>
-        <p ng-repeat="unit in main.copyModeList.units">
+        <span ng-repeat="unit in main.copyModeList.units">
             {{unit.type}} - {{unit.name}} - <strong>{{unit.points}}p</strong><br>
             <span ng-repeat="wargear in unit.wargear">
                 <small>{{wargear.name}} - <strong>{{wargear.points}}p</strong></small><br>
-            </span>
-        </p>
+            </span><br>
+        </span>
     </div>
 </section>

@@ -4,25 +4,79 @@ main-nav {
 
 body {
   & > .container {
-    display: flex;
-    align-items: flex-start;
     margin-top: 50px;
     margin-bottom: 50px;
 
+    @media (max-width: 1024px) {
+      width: 100%;
+    }
+
+    @media (min-width: 1025px) {
+      display: flex;
+      align-items: flex-start;
+    }
+
     & > .lists {
-      width: 66.6666%;
-      padding-right: 50px;
+      @media (min-width: 1025px) {
+        width: 66.6666%;
+        padding-right: 50px;
+      }
     }
 
     & > .sidebar {
-      position: sticky;
-      width: 33.3333%;
-      max-height: 100vh;
+      margin-top: 30px;
+
+      @media (min-width: 1025px) {
+        position: sticky;
+        width: 33.3333%;
+        max-height: 100vh;
+        margin-top: 0;
+      }
     }
   }
 }
 
+.no-lists {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: #fff;
+  transition: all .4s;
+  opacity: 0;
+  transform: translateY(30px);
+  pointer-events: none;
+
+  &.active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  button {
+    padding: 4px 60px;
+    font-size: 40px;
+    font-weight: 300;
+    text-transform: none;
+  }
+}
+
 .lists {
+  &.copymode-active {
+    user-select: none;
+    pointer-events: none;
+
+    input {
+      user-select: none;
+    }
+  }
+
   .list {
 
     &:not(:last-child) {
@@ -34,6 +88,11 @@ body {
     .list-header {
       margin-bottom: 20px;
       font-size: 150%;
+
+      @media (max-width: 1024px) {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
 
       &:after {
         content: '';
@@ -111,6 +170,10 @@ body {
 
         .unit-points {
           float: right;
+
+          &::placeholder {
+            color: #fff;
+          }
         }
 
         .wargear-items {
@@ -142,6 +205,11 @@ body {
 
     .list-footer {
       margin-top: 20px;
+
+      @media (max-width: 1024px) {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
     }
   }
 
@@ -278,7 +346,7 @@ input.points {
   transform: translateY(30px);
   pointer-events: none;
 
-  &.true {
+  &.copymode-active {
     opacity: 1;
     transform: none;
     pointer-events: auto;
@@ -303,6 +371,7 @@ input.points {
       color: #fff;
       font-weight: 700;
       cursor: pointer;
+      user-select: none;
 
       &:hover {
         background: lighten($primary, 5%);
