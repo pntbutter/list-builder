@@ -20,7 +20,8 @@
       'ngRoute',
       'ngStorage',
       'puElasticInput',
-      'duScroll'
+      'duScroll',
+      'dndLists'
     ])
     .config(config);
 

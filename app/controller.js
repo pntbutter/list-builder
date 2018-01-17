@@ -62,9 +62,13 @@
     function addList() {
       $localStorage.lists.push({
         id: $localStorage.listsId,
-        name: '',
+        name: 'List name',
         units: []
       });
+
+      addUnit($localStorage.listsId);
+      addUnit($localStorage.listsId);
+      addUnit($localStorage.listsId);
 
       $localStorage.listsId++;
     }

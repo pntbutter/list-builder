@@ -10,21 +10,18 @@
             <span class="list-total">{{main.listTotal(list.id)}}</span>
         </header>
 
-        <ul class="units">
-            <li class="unit" ng-repeat="unit in list.units">
+        <div class="list-buttons">
+            <button class="btn" ng-click="main.addUnit(list.id)">Add unit</button>
+            <button class="btn" ng-click="main.copyMode(list.id)">Copy mode</button>
+            <button class="btn" ng-click="main.duplicateList(list.id)">Duplicate</button>
+            <button class="btn btn-warning" ng-click="main.removeList(list.id)" style="float: right;">Remove list</button>
+        </div>
 
-                <div class="move-container">
-                    <div ng-click="main.moveUnitUp(list.id, unit.id)">
-                        <svg width="18" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1675 971q0 51-37 90l-75 75q-38 38-91 38-54 0-90-38l-294-293v704q0 52-37.5 84.5t-90.5 32.5h-128q-53 0-90.5-32.5t-37.5-84.5v-704l-294 293q-36 38-90 38t-90-38l-75-75q-38-38-38-90 0-53 38-91l651-651q35-37 90-37 54 0 91 37l651 651q37 39 37 91z"/>
-                        </svg>
-                    </div>
-                    <div ng-click="main.moveUnitDown(list.id, unit.id)">
-                        <svg width="18" height="18" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1675 832q0 53-37 90l-651 652q-39 37-91 37-53 0-90-37l-651-652q-38-36-38-90 0-53 38-91l74-75q39-37 91-37 53 0 90 37l294 294v-704q0-52 38-90t90-38h128q52 0 90 38t38 90v704l294-294q37-37 90-37 52 0 91 37l75 75q37 39 37 91z"/>
-                        </svg>
-                    </div>
-                </div>
+        <ul class="units" dnd-list="list.units">
+            <li class="unit" ng-repeat="unit in list.units" dnd-draggable="unit" dnd-effect-allowed="move"
+                dnd-moved="list.units.splice($index, 1)">
+
+
                 <input class="unit-type" type="text" ng-model="unit.type" placeholder="Unit type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
                 <input class="unit-name" type="text" ng-model="unit.name" placeholder="Unit name" pu-elastic-input>
                 <span class="delete delete-unit" ng-click="main.removeUnit(list.id, unit.id)">
@@ -54,13 +51,6 @@
                 </ul>
             </li>
         </ul>
-
-        <footer class="list-footer">
-            <button class="btn" ng-click="main.addUnit(list.id)">Add unit</button>
-            <button class="btn" ng-click="main.copyMode(list.id)">Copy mode</button>
-            <button class="btn" ng-click="main.duplicateList(list.id)">Duplicate</button>
-            <button class="btn btn-warning" ng-click="main.removeList(list.id)" style="float: right;">Remove list</button>
-        </footer>
     </div>
 </main>
 
@@ -70,6 +60,8 @@
     </ul>
 
     <button class="btn" ng-click="main.addList()">Add list</button>
+
+    <small>Drag and drop units to reposition them.</small>
 </aside>
 
 <section class="copy-mode-container" ng-class="{ 'copymode-active': main.copyModeActive }">
