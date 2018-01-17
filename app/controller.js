@@ -25,8 +25,6 @@
     self.removeUnit = removeUnit;
     self.removeWargear = removeWargear;
     self.removeList = removeList;
-    self.moveUnitUp = moveUnitUp;
-    self.moveUnitDown = moveUnitDown;
     self.listTotal = listTotal;
     self.copyMode = copyMode;
     self.exitCopyMode = exitCopyMode;
@@ -167,56 +165,6 @@
                   return false;
                 }
               });
-            }
-          });
-        }
-      });
-    }
-
-    function moveUnitUp(listid, unitid) {
-      var lists = $localStorage.lists;
-
-      lists.forEach(function(list, index) {
-        if (list.id == listid) {
-          var tmpListId = index;
-          var units = $localStorage.lists[index].units;
-
-          units.forEach(function(unit, index) {
-            if (unit.id == unitid && index > 0) {
-              var tmpMoveUnit = $localStorage.lists[tmpListId].units[index - 1];
-              $localStorage.lists[tmpListId].units[index - 1] = unit;
-              $localStorage.lists[tmpListId].units[index] = tmpMoveUnit;
-
-              delete lists;
-              delete units;
-              delete tmpMoveUnit;
-              delete tmpListId;
-              return false;
-            }
-          });
-        }
-      });
-    }
-
-    function moveUnitDown(listid, unitid) {
-      var lists = $localStorage.lists;
-
-      lists.forEach(function(list, index) {
-        if (list.id == listid) {
-          var tmpListId = index;
-          var units = $localStorage.lists[index].units;
-
-          units.forEach(function(unit, index) {
-            if (unit.id == unitid && units.length - 1 > index) {
-              var tmpMoveUnit = $localStorage.lists[tmpListId].units[index + 1];
-              $localStorage.lists[tmpListId].units[index] = tmpMoveUnit;
-              $localStorage.lists[tmpListId].units[index + 1] = unit;
-
-              delete lists;
-              delete units;
-              delete tmpMoveUnit;
-              delete tmpListId;
-              return false;
             }
           });
         }
