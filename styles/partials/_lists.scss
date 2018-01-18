@@ -1,7 +1,3 @@
-main-nav {
-  display: none;
-}
-
 body {
   & > .container {
     margin-top: 50px;
@@ -36,6 +32,42 @@ body {
   }
 }
 
+.top-nav {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #3e3e43;
+  will-change: transform;
+
+  .list-nav {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+
+    strong {
+      font-weight: 800;
+    }
+
+    a {
+      margin-left: 25px;
+      color: rgba(#fff, .5);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all .25s;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+
 .no-lists {
   position: fixed;
   z-index: 1000;
@@ -47,10 +79,11 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #fff;
-  transition: all .4s;
+  border: 5px dashed rgba(#fff, .25);
+  background: #222129;
+  transition: all .6s;
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(100%);
   pointer-events: none;
 
   &.active {
@@ -62,12 +95,13 @@ body {
   button {
     padding: 4px 60px;
     font-size: 40px;
-    font-weight: 300;
-    text-transform: none;
+    letter-spacing: 2px;
   }
 }
 
 .lists {
+  padding-top: 25px;
+
   &.copymode-active {
     user-select: none;
     pointer-events: none;
@@ -78,7 +112,6 @@ body {
   }
 
   .list {
-
     &:not(:last-child) {
       margin-bottom: 30px;
       padding-bottom: 30px;
@@ -104,12 +137,35 @@ body {
       .list-name {
         width: 80%;
         float: left;
+        font-weight: 800;
       }
 
       .list-total {
+        display: block;
         width: 20%;
         float: right;
+        font-weight: 900;
         text-align: right;
+
+        &.ng-enter, &.ng-leave {
+          transition:0.5s linear all;
+        }
+        &.ng-enter {
+          transform: translateX(-30px);
+          opacity: 0;
+        }
+        &.ng-enter-active {
+          transform: none;
+          opacity: 1;
+        }
+        &.ng-leave {
+          transform: none;
+          opacity: 1;
+        }
+        &.ng-leave-active {
+          transform: translateX(30px);
+          opacity: 0;
+        }
       }
     }
 
@@ -126,7 +182,7 @@ body {
       list-style: none;
       margin: 0;
       padding: 0;
-      border: 1px solid rgba(#000, .1);
+      border: 1px solid rgba(#fff, .1);
 
       .dndPlaceholder {
         display: block;
@@ -138,12 +194,11 @@ body {
         position: relative;
         padding: 15px;
 
-        &:nth-child(odd) { background: rgba(#000, .025); }
-        &:nth-child(even) { background: rgba(#000, .0075); }
+        &:nth-child(odd) { background: rgba(#fff, .025); }
+        &:nth-child(even) { background: rgba(#fff, .0075); }
 
         &:hover {
-          .move-container {
-            opacity: 1;
+          .points {
             transform: none;
           }
         }
@@ -152,40 +207,28 @@ body {
           display: none;
         }
 
-        .move-container {
-          position: absolute;
-          top: 10px;
-          right: 100%;
-          padding: 0 6px;
-          opacity: 0;
-          transform: translateX(-10px);
+        .points {
+          transform: translateX(26px);
           transition: all .25s;
-
-          div {
-            line-height: 1;
-            cursor: pointer;
-            opacity: .5;
-            transtion: all .25s;
-
-            &:hover {
-              opacity: .75;
-            }
-          }
         }
 
         & > .delete {
           width: 20px;
           height: 20px;
+          margin-top: 1px;
           margin-left: 8px;
         }
 
         .unit-type {
           margin-right: 10px;
+          color: #fff;
           opacity: .5;
         }
 
         .unit-name {
+          color: #fff;
           font-weight: 700;
+          opacity: .75;
         }
 
         .unit-points {
@@ -201,6 +244,24 @@ body {
           margin: 0;
           padding: 0;
 
+          &.ng-move,
+          &.ng-enter,
+          &.ng-leave {
+            transition:all linear 0.5s;
+          }
+
+          &.ng-leave.ng-leave-active,
+          &.ng-move,
+          &.ng-enter {
+            opacity:0;
+          }
+
+          &.ng-leave,
+          &.ng-move.ng-move-active,
+          &.ng-enter.ng-enter-active {
+            opacity:1;
+          }
+
           .wargear-item {
             position: relative;
             margin-left: -25px;
@@ -210,10 +271,13 @@ body {
             & > .delete {
               width: 16px;
               height: 16px;
-              margin: 0 2px 0 10px;
+              margin: 2px 2px 0 10px;
             }
 
-            .wargear-name {}
+            .wargear-name {
+              color: #fff;
+              opacity: .6;
+            }
 
             .wargear-points {
               float: right;
@@ -222,6 +286,11 @@ body {
         }
       }
     }
+
+    .list-info {
+      font-size: 14px;
+      opacity: .5;
+    }
   }
 
   .delete {
@@ -229,7 +298,8 @@ body {
     display: inline-block;
     width: 15px;
     height: 15px;
-    opacity: .33;
+    line-height: 1;
+    opacity: .75;
     transition: all .15s;
     cursor: pointer;
 
@@ -239,35 +309,35 @@ body {
   }
 }
 
-.sidebar {
-  padding: 15px 20px;
-  border: 1px solid rgba(#000, .1);
-
-  .list-nav {
-    list-style: none;
-    margin: 0 0 15px 0;
-    padding: 0;
-
-    li {
-      a {
-        font-size: 15px;
-        opacity: .8;
-        cursor: pointer;
-
-        &:hover {
-          opacity: 1;
-          text-decoration: none;
-        }
-      }
-    }
-  }
-
-  small {
-    display: block;
-    margin-top: 20px;
-    opacity: .5;
-  }
-}
+//.sidebar {
+//  padding: 15px 20px;
+//  border: 1px solid rgba(#000, .1);
+//
+//  .list-nav {
+//    list-style: none;
+//    margin: 0 0 15px 0;
+//    padding: 0;
+//
+//    li {
+//      a {
+//        font-size: 15px;
+//        opacity: .8;
+//        cursor: pointer;
+//
+//        &:hover {
+//          opacity: 1;
+//          text-decoration: none;
+//        }
+//      }
+//    }
+//  }
+//
+//  small {
+//    display: block;
+//    margin-top: 20px;
+//    opacity: .5;
+//  }
+//}
 
 
 
@@ -302,8 +372,6 @@ input.points {
   &:focus {
     background: #75afe2;
   }
-
-
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
@@ -376,6 +444,7 @@ input.points {
     overflow: auto;
     padding: 30px;
     background: #fff;
+    color: #000;
 
     .close-copy-mode {
       position: absolute;
