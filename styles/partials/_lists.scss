@@ -1,34 +1,7 @@
 body {
   & > .container {
-    margin-top: 50px;
-    margin-bottom: 50px;
-
-    @media (max-width: 1024px) {
-      width: 100%;
-    }
-
-    @media (min-width: 1025px) {
-      display: flex;
-      align-items: flex-start;
-    }
-
-    & > .lists {
-      @media (min-width: 1025px) {
-        width: 66.6666%;
-        padding-right: 50px;
-      }
-    }
-
-    & > .sidebar {
-      margin-top: 30px;
-
-      @media (min-width: 1025px) {
-        position: sticky;
-        width: 33.3333%;
-        max-height: 100vh;
-        margin-top: 0;
-      }
-    }
+    max-width: 900px;
+    margin: 50px auto;
   }
 }
 
