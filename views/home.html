@@ -1,12 +1,12 @@
 <main class="lists" ng-class="{ 'copymode-active': main.copyModeActive }">
 
-    <nav class="top-nav">
+    <nav class="top-nav" ng-if="!main.copyModeActive">
         <div class="list-nav">
             <strong>Jump to list: </strong>
             <a ng-repeat="list in main.$storage.lists track by $index" ng-click="main.scrollTo(list.id)">{{list.name}}</a>
         </div>
 
-        <button class="btn" ng-click="main.addList()">Add list</button>
+        <button class="btn btn--primary" ng-click="main.addList()">Add list</button>
     </nav>
 
     <div class="no-lists" ng-class="{ 'active': main.$storage.lists.length == 0 }">
@@ -14,57 +14,57 @@
     </div>
 
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">
-        <header class="list-header" id="{{list.id}}">
-            <input class="list-name" type="text" placeholder="List name" ng-model="list.name">
-            <span class="list-total">{{main.listTotal(list.id)}}</span>
+        <header class="list__header" id="{{list.id}}">
+            <input class="input list__name" type="text" placeholder="List name" ng-model="list.name">
+            <span class="list__total">{{main.listTotal(list.id)}}</span>
         </header>
 
         <div class="list-buttons">
-            <button class="btn" ng-click="main.addUnit(list.id)">Add unit</button>
+            <button class="btn btn--primary" ng-click="main.addUnit(list.id)">Add unit</button>
             <button class="btn" ng-click="main.copyMode(list.id)">Copy mode</button>
             <button class="btn" ng-click="main.duplicateList(list.id)">Duplicate</button>
-            <button class="btn btn-warning" ng-click="main.removeList(list.id)" style="float: right;">Remove list</button>
+            <button class="btn btn--warning-subtle" ng-click="main.removeList(list.id)">Remove list</button>
         </div>
 
         <ul class="units" dnd-list="list.units">
-            <li class="unit" ng-repeat="unit in list.units" dnd-draggable="unit" dnd-effect-allowed="move"
+            <li class="unit" ng-repeat="unit in list.units" dnd-draggable="unit" dnd-nodrag dnd-effect-allowed="move"
                 dnd-moved="list.units.splice($index, 1)">
 
+                <div class="unit__inputs-container" dnd-nodrag>
+                  <input class="input unit__type" type="text" ng-model="unit.type" placeholder="Unit type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
 
-                <input class="unit-type" type="text" ng-model="unit.type" placeholder="Unit type" ng-class="{'empty': unit.type.length < 0}" pu-elastic-input>
-                <input class="unit-name" type="text" ng-model="unit.name" placeholder="Unit name" pu-elastic-input>
-                <span class="delete delete-unit" ng-click="main.removeUnit(list.id, unit.id)">
-                    <i class="icon ion-minus-circled"></i>
-                    <!--<svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">-->
-                        <!--<path d="M1344 960v-128q0-26-19-45t-45-19h-768q-26 0-45 19t-19 45v128q0 26 19 45t45 19h768q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>-->
-                    <!--</svg>-->
-                </span>
-                <input class="points unit-points" type="number" min="0" placeholder="0" ng-model="unit.points" pu-elastic-input>
+                  <input class="input unit__name" type="text" ng-model="unit.name" placeholder="Unit name" pu-elastic-input>
 
-                <ul class="wargear-items">
-                    <li class="wargear-item" ng-repeat="item in unit.wargear">
-                        <input class="wargear-name" type="text" ng-model="item.name" placeholder="Wargear name" pu-elastic-input>
-                        <span class="delete delete-wargear" ng-click="main.removeWargear(list.id, unit.id, item.id)">
-                            <i class="icon ion-minus-circled"></i>
-                            <!--<svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">-->
-                                <!--<path d="M1344 960v-128q0-26-19-45t-45-19h-768q-26 0-45 19t-19 45v128q0 26 19 45t45 19h768q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>-->
-                            <!--</svg>-->
-                        </span>
-                        <input class="points wargear-points" type="number" placeholder="0" ng-model="item.points" pu-elastic-input>
-                    </li>
-                    <li>
-                        <button class="btn-icon" ng-click="main.addWargear(list.id, unit.id)" tabindex="-1">
-                            <i class="icon ion-plus-circled"></i>
-                            <!--<svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">-->
-                                <!--<path d="M1344 960v-128q0-26-19-45t-45-19h-256v-256q0-26-19-45t-45-19h-128q-26 0-45 19t-19 45v256h-256q-26 0-45 19t-19 45v128q0 26 19 45t45 19h256v256q0 26 19 45t45 19h128q26 0 45-19t19-45v-256h256q26 0 45-19t19-45zm320-64q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>-->
-                            <!--</svg>-->
-                        </button>
-                    </li>
-                </ul>
+                  <span class="delete unit__delete" ng-click="main.removeUnit(list.id, unit.id)">
+                      <i class="icon ion-close-round icon--interactive"></i>
+                  </span>
+
+                  <input class="input points unit__points" type="number" min="0" placeholder="0" ng-model="unit.points" pu-elastic-input>
+
+                  <ul class="wargear">
+                      <li class="wargear__item" ng-repeat="item in unit.wargear">
+                          <input class="input wargear__name" type="text" ng-model="item.name" placeholder="Wargear name" pu-elastic-input>
+
+                          <span class="delete wargear__delete" ng-click="main.removeWargear(list.id, unit.id, item.id)">
+                              <i class="icon ion-close-round icon--interactive"></i>
+                          </span>
+
+                          <input class="input points wargear__points" type="number" placeholder="0" ng-model="item.points" pu-elastic-input>
+                      </li>
+                  </ul>
+
+                  <footer class="unit__footer">
+                    <span ng-click="main.addWargear(list.id, unit.id)" title="Add wargear">
+                      <i class="icon ion-plus-round icon--interactive"></i>
+                    </span>
+
+                    <span dnd-handle title="Drag and drop to rearrange">
+                      <i class="icon ion-arrow-move icon--interactive"></i>
+                    </span>
+                  </footer>
+                </div>
             </li>
         </ul>
-
-        <p class="list-info">Drag and drop units to reposition them.</p>
     </div>
 </main>
 

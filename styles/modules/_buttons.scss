@@ -1,6 +1,60 @@
-/******************************************************************
+.btn {
+  display: inline-block;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 2px solid $primary;
+  background: transparent;
+  color: $primary;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all .15s;
+  outline: none;
+  cursor: pointer;
 
-Buttons
+  &:hover {
+    color: #fff;
+    background: mix($primary, $black, 90%);
+    border-color: mix($primary, $white, 90%);
+  }
 
-******************************************************************/
+  &.btn--primary {
+    color: rgba(#fff, .75);
+    background: $primary;
 
+    &:hover {
+      color: #fff;
+      background: mix($primary, $black, 90%);
+      border-color: mix($primary, $white, 90%);
+    }
+  }
+
+  &.btn--warning {
+    border-color: $alert-red;
+    background: transparent;
+    color: $alert-red;
+  }
+
+  &.btn--warning-subtle {
+    border-color: transparent;
+    background: transparent;
+    color: rgba(#fff, .5);
+
+    &:hover {
+      color: $alert-red;
+    }
+  }
+}
+
+
+
+.icon--interactive {
+  opacity: .75;
+  transition: all .15s;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
