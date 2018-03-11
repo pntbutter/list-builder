@@ -110,9 +110,9 @@ a, a:visited {
   flex-direction: column;
   border: 5px dashed rgba(#fff, .25);
   background: #222129;
-  transition: all .6s;
+  transition: all .3s;
   opacity: 0;
-  transform: translateX(100%);
+  transform: scale(.5);
   pointer-events: none;
 
   &.active {
@@ -122,8 +122,9 @@ a, a:visited {
   }
 
   button {
-    padding: 4px 60px;
-    font-size: 40px;
+		height: auto;
+    padding: 16px 50px;
+    font-size: $large;
     letter-spacing: 2px;
   }
 }

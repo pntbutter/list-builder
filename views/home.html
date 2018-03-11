@@ -10,7 +10,8 @@
     </nav>
 
     <div class="no-lists" ng-class="{ 'active': main.$storage.lists.length == 0 }">
-        <h1>You currently don't have any lists</h1><button class="btn" ng-click="main.addList()">Create one</button>
+        <h1>You currently don't have any lists</h1>
+        <button class="btn btn--primary" ng-click="main.addList()">Create one</button>
     </div>
 
     <div class="list" ng-repeat="list in main.$storage.lists track by $index">

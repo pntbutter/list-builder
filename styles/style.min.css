@@ -33,10 +33,10 @@ strong{font-weight:600}
 .center{margin:0 auto}
 .smooth{-webkit-transition:all .2s ease;-moz-transition:all .2s ease;-ms-transition:all .2s ease;-o-transition:all .2s ease}
 p{-ms-word-wrap:break-word;word-break:break-word;word-wrap:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;-webkit-hyphenate-before:2;-webkit-hyphenate-after:3;hyphenate-lines:3;-webkit-font-feature-settings:"liga","dlig";-moz-font-feature-settings:"liga=1, dlig=1";-ms-font-feature-settings:"liga","dlig";-o-font-feature-settings:"liga","dlig";font-feature-settings:"liga","dlig"}
-body{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;background:#222129;color:rgba(255,255,255,.65);font-size:125%;line-height:1.5}
+*,:after,:before{box-sizing:border-box}
+body{background:#222129;color:rgba(255,255,255,.65);font-size:125%;line-height:1.5;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
 body>.container{max-width:1000px;margin:50px auto}
 html{height:100%}
-*,:after,:before{box-sizing:border-box}
 a,a:visited{color:#231f20;text-decoration:none}
 a:focus,a:hover,a:visited:focus,a:visited:hover{color:#0b090a;text-decoration:underline}
 a:link,a:visited:link{-webkit-tap-highlight-color:rgba(0,0,0,.3)}
@@ -44,11 +44,11 @@ a:link,a:visited:link{-webkit-tap-highlight-color:rgba(0,0,0,.3)}
 .top-nav .list-nav{display:flex;flex-wrap:wrap;font-size:15px}
 .top-nav .list-nav a{margin-left:25px;color:rgba(255,255,255,.5);text-decoration:none;cursor:pointer;transition:all .25s}
 .top-nav .list-nav a:hover{color:#fff}
-.no-lists{bottom:0;align-items:center;justify-content:center;flex-direction:column;border:5px dashed rgba(255,255,255,.25);background:#222129;transition:all .6s;opacity:0;transform:translateX(100%);pointer-events:none}
+.no-lists{bottom:0;align-items:center;justify-content:center;flex-direction:column;border:5px dashed rgba(255,255,255,.25);background:#222129;transition:all .6s;opacity:0;transform:scale(.5);pointer-events:none}
 .delete,.input{display:inline-block}
 .input,.points{border:none;color:#fff}
 .no-lists.active{opacity:1;transform:none;pointer-events:auto}
-.no-lists button{padding:4px 60px;font-size:40px;letter-spacing:2px}
+.no-lists button{height:auto;padding:16px 50px;font-size:32px;letter-spacing:2px}
 .input{width:auto;min-width:20px;padding:0;background:0 0;font-size:20px;outline:0}
 .input.empty{box-shadow:0 0 5px rgba(255,0,0,.2)}
 .delete{line-height:1}
@@ -60,8 +60,8 @@ a:link,a:visited:link{-webkit-tap-highlight-color:rgba(0,0,0,.3)}
 .lists.copymode-active input{user-select:none}
 .list:not(:last-child){margin-bottom:55px;padding-bottom:65px;border-bottom:1px solid rgba(0,0,0,.1)}
 .list__header{display:flex;justify-content:space-between;margin-bottom:15px;line-height:1}
-.list__name{font-size:32px}
-.list__total{position:relative;color:#fff;font-size:32px;font-weight:900;text-align:right}
+.list__name{flex:1 1 80%;font-size:32px}
+.list__total{position:relative;margin-left:20px;color:#fff;font-size:32px;font-weight:900;text-align:right}
 .list__total:after{content:'Total';position:absolute;right:0;bottom:100%;font-size:12px;font-weight:700;letter-spacing:.5px;opacity:.4}
 .list-buttons{margin-bottom:30px}
 @media (max-width:1024px){.list-buttons{padding-left:15px;padding-right:15px}

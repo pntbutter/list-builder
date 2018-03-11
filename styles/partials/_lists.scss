@@ -54,12 +54,14 @@
   }
 
     .list__name {
+      flex: 1 1 80%;
       font-size: $large;
       font-weight: 800;
     }
 
     .list__total {
       position: relative;
+      margin-left: 20px;
       color: #fff;
       font-size: $large;
       font-weight: 900;
