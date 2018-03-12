@@ -186,7 +186,7 @@ gulp.task('usemin', function() {
     }))
     .pipe($.usemin({
       css: [$.minifyCss(), 'concat'],
-      libs: [$.uglify()],
+      libs: [],
       nonangularlibs: [$.uglify()],
       angularlibs: [$.uglify()],
       appcomponents: [$.uglify()],
