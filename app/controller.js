@@ -28,6 +28,7 @@
         self.listTotal = listTotal;
         self.copyMode = copyMode;
         self.exitCopyMode = exitCopyMode;
+        self.exportList = exportList;
         self.duplicateList = duplicateList;
         self.scrollTo = scrollTo;
 
@@ -233,6 +234,24 @@
             $timeout(function () {
                 self.copyModeList = null;
             }, 250)
+        }
+
+        function convertCanvasToImage(canvas) {
+            var uri = canvas.toDataURL("image/png");
+        	return uri;
+        }
+
+        function exportList() {
+            html2canvas(document.getElementById('exportcontainer')).then(function(canvas) {
+                var imgExp = convertCanvasToImage(canvas);
+                var docDefinition = {
+                  content: [{
+                    image: imgExp,
+                    width: 600
+                  }]
+                };
+                pdfMake.createPdf(docDefinition).download('list.pdf');
+            });
         }
 
         function duplicateList(id) {

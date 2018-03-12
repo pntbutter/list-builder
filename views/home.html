@@ -80,9 +80,12 @@
 <!--</aside>-->
 
 <section class="copy-mode-container" ng-class="{ 'copymode-active': main.copyModeActive }">
-    <div class="container">
-        <div class="close-copy-mode" ng-click="main.exitCopyMode()">Exit</div>
+    <div class="copy-mode-actions">
+        <button class="btn btn--primary" ng-click="main.exportList()">Export</button>
+        <button class="btn" ng-click="main.exitCopyMode()">Exit</button>
+    </div>
 
+    <div class="container" id="exportcontainer">
         <h3>{{main.copyModeList.name}} - <strong>{{main.listTotal(main.copyModeList.id)}}p</strong></h3>
         <span ng-repeat="unit in main.copyModeList.units">
             {{unit.type}} - {{unit.name}} - <strong>{{unit.points}}p</strong><br>

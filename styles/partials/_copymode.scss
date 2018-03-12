@@ -1,57 +1,49 @@
 .copy-mode-container {
-  position: fixed;
-  z-index: 100;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #fafafa;
-  font-size: 80%;
-  transition: all .25s;
-  opacity: 0;
-  transform: translateY(30px);
-  pointer-events: none;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #fafafa;
+    font-size: 80%;
+    transition: all .25s;
+    opacity: 0;
+    transform: translateY(30px);
+    pointer-events: none;
 
-  &.copymode-active {
-    opacity: 1;
-    transform: none;
-    pointer-events: auto;
-  }
-
-  .container {
-    position: relative;
-    max-width: 760px;
-    margin: 0 auto;
-    height: 100%;
-    overflow: auto;
-    padding: 30px;
-    background: #fff;
-    color: #000;
-
-    .close-copy-mode {
-      position: absolute;
-      top: 30px;
-      right: 30px;
-      padding: 4px 16px;
-      border-radius: 100px;
-      text-transform: uppercase;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      user-select: none;
-      opacity: .5;
-
-      &:hover {
-        opacity: .75;
-      }
-
-      &:active {
+    &.copymode-active {
         opacity: 1;
-      }
+        transform: none;
+        pointer-events: auto;
+    }
+
+    .container {
+        position: relative;
+        max-width: 760px;
+        margin: 0 auto;
+        height: 100%;
+        overflow: auto;
+        padding: 30px;
+        background: #fff;
+        color: #000;
     }
 
     h3 {
-      padding-right: 80px;
+        padding-right: 80px;
     }
-  }
+
+    .copy-mode-actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        padding: 5px;
+        user-select: none;
+
+        button {
+            margin: 5px;
+            user-select: none;
+        }
+    }
 }
